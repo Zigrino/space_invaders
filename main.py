@@ -12,8 +12,10 @@ pygame.display.set_icon(icon)
 
 #player
 playerImg = pygame.image.load('star-wars.png')
-playerX = 370
+playerX = 350
 playerY = 480
+playerX_change = 0
+playerY_change = 0
 def player(x, y):
     screen.blit(playerImg, (x, y))
 
@@ -27,11 +29,40 @@ while running:
         #check keystrokes
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
+                playerX_change = -0.3
+            if event.key == pygame.K_RIGHT:
+                playerX_change = +0.3
+            if event.key == pygame.K_UP:
+                playerY_change = -0.3
+            if event.key == pygame.K_DOWN:
+                playerY_change = +0.3
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                playerX_change = 0
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 0
+            if event.key == pygame.K_UP:
+                playerY_change = 0
+            if event.key == pygame.K_DOWN:
+                playerY_change = 0
+
                 
 
 
     #set screen color (rgb)
     screen.fill((255, 255, 255))
+
+    #draw player
+    playerX += playerX_change
+    playerY += playerY_change
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 738:
+        playerX = 738
+    if playerY <= 0:
+        playerY = 0
+    elif playerY >= 534:
+        playerY = 534
     player(playerX, playerY)
 
     #update screen
