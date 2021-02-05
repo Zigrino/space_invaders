@@ -1,4 +1,5 @@
 import pygame
+import random
 #initialize
 pygame.init()
 #create screen
@@ -19,6 +20,15 @@ playerY_change = 0
 def player(x, y):
     screen.blit(playerImg, (x, y))
 
+#enemy
+enemyImg = pygame.image.load('star-wars.png')
+enemyX = random.randint(0, 800)
+enemyY = random.randint(50, 150)
+enemyX_change = 0
+enemyY_change = 0
+def enemy(x, y):
+    screen.blit(enemyImg, (x, y))
+
 #game loop
 running = True
 while running:
@@ -29,13 +39,13 @@ while running:
         #check keystrokes
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.3
+                playerX_change = -0.5
             if event.key == pygame.K_RIGHT:
-                playerX_change = +0.3
+                playerX_change = +0.5
             if event.key == pygame.K_UP:
-                playerY_change = -0.3
+                playerY_change = -0.5
             if event.key == pygame.K_DOWN:
-                playerY_change = +0.3
+                playerY_change = +0.5
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 playerX_change = 0
@@ -64,6 +74,7 @@ while running:
     elif playerY >= 534:
         playerY = 534
     player(playerX, playerY)
+    enemy(enemyX, enemyY)
 
     #update screen
     pygame.display.update()
